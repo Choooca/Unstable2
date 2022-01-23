@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Script/Enemies/Demon.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Enemies/Demon/big_demon_run_anim_f0.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Enemies/Demon/big_demon_run_anim_f3.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Enemies/Demon/big_demon_run_anim_f1.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Enemies/Demon/big_demon_run_anim_f2.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 12.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 9, 8 )
+
+[node name="Demon" type="KinematicBody2D"]
+z_index = 4
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+frame = 3
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 6 )
+shape = SubResource( 2 )
+
+[node name="Charge" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Charge" to="." method="_on_Charge_timeout"]

@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Enemies/4dirgun/4dir_idle2.png" type="Texture" id=1]
+[ext_resource path="res://Scene/Enemies/Laser beam.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Script/Enemies/4dirgun.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Enemies/4dirgun/4dir_idle1.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3, 3 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[node name="4dirgun" type="StaticBody2D"]
+scale = Vector2( 2, 2 )
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="RayCast2DE" parent="." instance=ExtResource( 2 )]
+position = Vector2( 5, -9.53674e-07 )
+
+[node name="RayCast2DN" parent="." instance=ExtResource( 2 )]
+position = Vector2( 4.76837e-07, -5 )
+rotation = -1.5708
+
+[node name="RayCast2DS" parent="." instance=ExtResource( 2 )]
+position = Vector2( 4.76837e-07, 5 )
+rotation = 1.5708
+
+[node name="RayCast2DW" parent="." instance=ExtResource( 2 )]
+position = Vector2( -5, 5.68434e-14 )
+rotation = 3.14159
+
+[node name="TimerStart" type="Timer" parent="."]
+one_shot = true
+
+[node name="TimerStop" type="Timer" parent="."]
+one_shot = true
+
+[node name="TimerAnim" type="Timer" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+
+[connection signal="timeout" from="TimerStart" to="." method="_on_TimerStart_timeout"]
+[connection signal="timeout" from="TimerStop" to="." method="_on_TimerStop_timeout"]
+[connection signal="timeout" from="TimerAnim" to="." method="_on_TimerAnim_timeout"]

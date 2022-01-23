@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Script/Enemies/Laser beam.gd" type="Script" id=1]
+
+[sub_resource type="Environment" id=9]
+background_mode = 4
+glow_enabled = true
+glow_levels/1 = true
+glow_levels/5 = false
+glow_intensity = 0.2
+glow_blend_mode = 0
+glow_hdr_luminance_cap = 2.0
+glow_bicubic_upscale = true
+
+[node name="RayCast2D" type="RayCast2D"]
+scale = Vector2( 0.2, 0.2 )
+cast_to = Vector2( 500, 0 )
+script = ExtResource( 1 )
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2( -1, 0 )
+points = PoolVector2Array( 1.00002, 0, 47, 0 )
+default_color = Color( 0.5, 3, 6, 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 9 )

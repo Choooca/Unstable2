@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Enemies/Slimes/Slime_Small_Green.png" type="Texture" id=1]
+[ext_resource path="res://Script/Enemies/Slime.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 4, 4 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[node name="Slime" type="Node2D"]
+
+[node name="Slime" type="KinematicBody2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slime"]
+position = Vector2( 0, -2 )
+shape = SubResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Slime"]
+z_index = 5
+frames = SubResource( 5 )
+frame = 1
+playing = true
+
+[node name="Timer" type="Timer" parent="Slime"]
+
+[node name="TimerTache" type="Timer" parent="Slime"]
+
+[connection signal="timeout" from="Slime/Timer" to="Slime" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Slime/TimerTache" to="Slime" method="_on_TimerTache_timeout"]
